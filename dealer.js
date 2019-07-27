@@ -1,7 +1,8 @@
 
 // Deals a hand
 // Modifies all 3 objects/arrays being passed in
-function dealCardsForRound(players, dealer, stackOfCards) {
+function dealCardsForRound(data) {
+    let { players, dealer, stackOfCards } = data
     // deal one card to each player
     players.forEach(player => {
         player.isPlaying = true;
@@ -15,7 +16,7 @@ function dealCardsForRound(players, dealer, stackOfCards) {
     // deal a 2nd card to each player & check for blackjack 
     players.forEach(player => {
         givePlayerCardFromStack(player, stackOfCards);
-        checkPlayerForBlackJack(player);
+        checkPlayerForBlackJack(player, dealer);
     })
 
     // deal a 2nd card to the dealer (face down)
@@ -34,6 +35,7 @@ function checkPlayerForBlackJack(player, dealer) {
         playersPoints += card.pointValue;
     })
     if (player.cards.length === 2 && playersPoints === 21) {
+        bj++;
         handlePlayerWon(player, dealer, true);
         return true;
     }
@@ -41,7 +43,8 @@ function checkPlayerForBlackJack(player, dealer) {
 }
 
 function givePlayerCardFromStack(player, stackOfCards) {
-    const card = takeCardFromStack(stackOfCards);
+    let { card, newStackOfCards } = takeCardFromStack(stackOfCards);
+    stackOfCards = newStackOfCards;
     player.cards.push(card);
     return true;
 }
@@ -85,8 +88,9 @@ function discardPlayersCards(player, dealer) {
 // checks if the player busted their hand
 // If so, takes their bet and the round is over for them
 function checkPlayerForBust(player, dealer) {
-    const playersPoints = getDetailsForPlayersHand(player).points;
+    let playersPoints = getDetailsForPlayersHand(player).points;
     if (playersPoints > 21) {
+        bust++;
         handlePlayerLost(player, dealer);
         return true;
     }
@@ -98,7 +102,8 @@ function checkPlayerForBust(player, dealer) {
  * If it's a soft 17 (an ace and any combo of other cards totalling 6) then the dealer hits again (h17 game)
  * NOTE: I could make that an optional parameter in the future to simulate h17 and s17 games
  */
-function finishDealingDealersHand(dealer, stackOfCards) {
+function finishDealingDealersHand(data) {
+    let { dealer, stackOfCards } = data;
     let dealersHandDetails = getDetailsForPlayersHand(dealer);
 
     while (
@@ -115,7 +120,7 @@ function finishDealingDealersHand(dealer, stackOfCards) {
 // takes care of when a player wins
 function handlePlayerWon(player, dealer, isBlackJack) {
     // blackjack gets a 3-2 payout ratio
-    const payoutRatio = isBlackJack ? 1.5 : 1;
+    let payoutRatio = isBlackJack ? 1.5 : 1;
 
     // they get their bet back, plus a payout and the round is over for them
     player.cash += player.bet;
@@ -146,40 +151,53 @@ function handlePlayerTie(player, dealer) {
 // Checks each players hand compared to the dealers hand and then manages bets & payouts
 // Blackjacks and player busts should be handled while dealing, so here we just 
 //  check if the dealer busted, or whose points are higher
-function handleFinalBetsAndPayouts(dealer, players) {
-    const dealersPoints = getDetailsForPlayersHand(dealer).points;
+function handleFinalBetsAndPayouts(data) {
+    let { dealer, players } = data
+    let dealersPoints = getDetailsForPlayersHand(dealer).points;
     players.forEach(player => {
-        const playersPoints = getDetailsForPlayersHand(player).points;
+        let playersPoints = getDetailsForPlayersHand(player).points;
         if (playersPoints > dealersPoints || dealersPoints > 21) {
-            return handlePlayerWon(player, dealer, false);
+            handlePlayerWon(player, dealer, false);
         }
-        if (playersPoints < dealersPoints) {
-            return handlePlayerLost(player, dealer);
+        else if (playersPoints < dealersPoints) {
+            handlePlayerLost(player, dealer);
         }
-        if (playersPoints === dealersPoints) {
-            return handlePlayerTie(player, dealer)
+        else if (playersPoints === dealersPoints) {
+            handlePlayerTie(player, dealer)
         }
     })
+
+    // re save to data
+    data.players = players;
+    data.dealer = dealer;
+
     return true;
 }
 
 // figures out when it's time to re-shuffle, then does so
-function handleReShuffling(continuousShuffle, stackOfCards, dealer) {
+function handleReShuffling(data) {
+    let { continuousShuffle, stackOfCards, dealer } = data;
     // continuous shuffle re-shuffles all of the cards in between each round
     // otherwise, if we have less than half a deck left, let's re-shuffle
     if (continuousShuffle || stackOfCards.length < 26) {
         stackOfCards.push(...dealer.discardPile);
         dealer.discardPile = [];
-        shuffleCards(stackOfCards);
+        stackOfCards = getShuffledCards(stackOfCards);
     }
+
+    // re-save to data
+    data.stackOfCards = stackOfCards;
+    data.dealer = dealer;
+
     return true
 }
 
 // ends the round
 // dealer does final payouts, then discards his own cards and checks for a re-shuffle
-function finalizeRound(dealer, players, continuousShuffle, stackOfCards) {
-    handleFinalBetsAndPayouts(dealer, players);
+function finalizeRound(data) {
+    let { dealer } = data;
+    handleFinalBetsAndPayouts(data);
     discardPlayersCards(dealer, dealer);
-    handleReShuffling(continuousShuffle, stackOfCards, dealer);
+    handleReShuffling(data);
     return true;
 }
