@@ -24,7 +24,8 @@ function startGame({
         playRound(data);
     }
 
-    return true;
+    console.log(data);
+    return data;
 }
 
 function initPlayers(numberOfPlayers, startingCashPerPlayer) {
