@@ -170,9 +170,9 @@ function handleReShuffling(continuousShuffle, stackOfCards, dealer) {
     if (continuousShuffle || stackOfCards.length < 26) {
         stackOfCards.push(...dealer.discardPile);
         dealer.discardPile = [];
-        stackOfCards = shuffleCards(stackOfCards);
+        shuffleCards(stackOfCards);
     }
-    return true;
+    return true
 }
 
 // ends the round

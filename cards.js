@@ -20,15 +20,17 @@ function getAllCardsForNumberOfDecks(numberOfDecks) {
     return allCards;
 }
 
-// randomly orangizes all of the cards in the passed in array
+// Randomly orangizes all of the cards in the passed in array
+// Modifies the array that's passed in and returns it
 function shuffleCards(cardsArray) {
     let shuffledArray = [];
-    while (cardsArray.length) {
+    while (cardsArray.length > 0) {
         const randomIndex = random(0, cardsArray.length - 1);
         shuffledArray.push(cardsArray[randomIndex]);
         cardsArray.splice(randomIndex, 1);
     }
-    return shuffledArray;
+    cardsArray.push(...shuffledArray);
+    return cardsArray;
 }
 
 // returns a shuffled stack of cards for the specified number of decks 
