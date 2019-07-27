@@ -35,7 +35,6 @@ function checkPlayerForBlackJack(player, dealer) {
         playersPoints += card.pointValue;
     })
     if (player.cards.length === 2 && playersPoints === 21) {
-        bj++;
         handlePlayerWon(player, dealer, true);
         return true;
     }
@@ -90,7 +89,6 @@ function discardPlayersCards(player, dealer) {
 function checkPlayerForBust(player, dealer) {
     let playersPoints = getDetailsForPlayersHand(player).points;
     if (playersPoints > 21) {
-        bust++;
         handlePlayerLost(player, dealer);
         return true;
     }
