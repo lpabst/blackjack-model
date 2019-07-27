@@ -69,7 +69,7 @@ function getDetailsForPlayersHand(player) {
 }
 
 // takes the players cards and adds them to the dealers discard pile
-function takePlayersCards(player, dealer) {
+function discardPlayersCards(player, dealer) {
     dealer.discardPile.push(...player.cards);
     player.cards = [];
 }
@@ -109,14 +109,14 @@ function handlePlayerWon(player, dealer, isBlackJack) {
     player.cash += player.bet * payoutRatio;
     player.bet = 0;
     player.isPlaying = false;
-    takePlayersCards(player, dealer)
+    discardPlayersCards(player, dealer)
 }
 
 // they lose their bet without any payout, and the round is over for them
 function handlePlayerLost(player, dealer) {
     player.bet = 0;
     player.isPlaying = false;
-    takePlayersCards(player, dealer);
+    discardPlayersCards(player, dealer);
 }
 
 // they get their bet back, but no payout, and the round is over for them
@@ -124,7 +124,7 @@ function handlePlayerTie(player, dealer) {
     player.points += player.bet;
     player.bet = 0;
     player.isPlaying = false;
-    takePlayersCards(player, dealer);
+    discardPlayersCards(player, dealer);
 }
 
 // Checks each players hand compared to the dealers hand and then manages bets & payouts
@@ -146,9 +146,21 @@ function handleFinalBetsAndPayouts(dealer, players) {
     })
 }
 
+// figures out when it's time to re-shuffle, then does so
+function handleReShuffling(continuousShuffle, stackOfCards, dealer) {
+    // continuous shuffle re-shuffles all of the cards in between each round
+    // otherwise, if we have less than half a deck left, let's re-shuffle
+    if (continuousShuffle || stackOfCards.length < 26) {
+        stackOfCards.push(...dealer.discardPile);
+        dealer.discardPile = [];
+        stackOfCards = shuffleCards(stackOfCards);
+    }
+}
+
 // ends the round
-// dealer does final payouts, then discards his own cards
-function finalizeRound(dealer, players) {
+// dealer does final payouts, then discards his own cards and checks for a re-shuffle
+function finalizeRound(dealer, players, continuousShuffle, stackOfCards) {
     handleFinalBetsAndPayouts(dealer, players);
-    takePlayersCards(dealer, dealer);
+    discardPlayersCards(dealer, dealer);
+    handleReShuffling(continuousShuffle, stackOfCards, dealer);
 }

@@ -7,7 +7,7 @@ function getAllCardsForNumberOfDecks(numberOfDecks) {
     for (let i = 0; i < numberOfDecks; i++) {
         suits.forEach(suit => {
             values.forEach(value => {
-                const pointValue = typeof value === 'number' ? value : 10;
+                let pointValue = typeof value === 'number' ? value : 10;
                 if (value === 'a') pointValue = 11;
                 allCards.push({
                     value,
