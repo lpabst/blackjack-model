@@ -42,11 +42,10 @@ function initDealer() {
 
 // Does one full round of play
 function playRound(data) {
-    let { dealer, players, stackOfCards, continuousShuffle } = data
-    players.forEach(player => makeBet(player));
-    dealCardsForRound(players, dealer, stackOfCards);
-    players.forEach(player => finalizePlayersHand(player, dealer))
-    finishDealingDealersHand(dealer, stackOfCards);
-    finalizeRound(dealer, players, continuousShuffle, stackOfCards);
+    data.players.forEach(player => player.makeBet());
+    dealCardsForRound(data);
+    data.players.forEach(player => finalizePlayersHand(player, data.dealer.pointsShowing))
+    finishDealingDealersHand(data);
+    finalizeRound(data);
     return true;
 }

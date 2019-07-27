@@ -1,8 +1,12 @@
+/**
+ * All of the functions in this file are helper type functions. 
+ * They all return new values that need to be saved
+ */
 
 // returns unshuffled stack of cards for specificed number of decks
 function getAllCardsForNumberOfDecks(numberOfDecks) {
-    const values = ['a', 2, 3, 4, 5, 6, 7, 8, 9, 10, 'j', 'q', 'k'];
-    const suits = ['hearts', 'spades', 'clubs', 'diamonds'];
+    let values = ['a', 2, 3, 4, 5, 6, 7, 8, 9, 10, 'j', 'q', 'k'];
+    let suits = ['hearts', 'spades', 'clubs', 'diamonds'];
     let allCards = [];
     for (let i = 0; i < numberOfDecks; i++) {
         suits.forEach(suit => {
@@ -20,33 +24,34 @@ function getAllCardsForNumberOfDecks(numberOfDecks) {
     return allCards;
 }
 
-// Randomly orangizes all of the cards in the passed in array
-// Modifies the array that's passed in and returns it
+// Randomly orangizes all of the cards and returns a new array
 function shuffleCards(cardsArray) {
     let shuffledArray = [];
     while (cardsArray.length > 0) {
-        const randomIndex = random(0, cardsArray.length - 1);
+        let randomIndex = random(0, cardsArray.length - 1);
         shuffledArray.push(cardsArray[randomIndex]);
         cardsArray.splice(randomIndex, 1);
     }
-    cardsArray.push(...shuffledArray);
-    return cardsArray;
+    return shuffledArray;
 }
 
 // returns a shuffled stack of cards for the specified number of decks 
 function shuffleDecks(numberOfDecks) {
-    const allCards = getAllCardsForNumberOfDecks(numberOfDecks);
-    const shuffledCards = shuffleCards(allCards);
+    let allCards = getAllCardsForNumberOfDecks(numberOfDecks);
+    let shuffledCards = shuffleCards(allCards);
     return shuffledCards;
 }
 
-// takes one card from the array and returns it
-// modifies the original stack of cards
+// takes one card from the array
+// returns the card and the new array
 function takeCardFromStack(stackOfCards) {
     if (stackOfCards.length === 0) {
         throw Error('Deck (stack) is out of cards')
     }
-    const card = stackOfCards[0];
+    let card = stackOfCards[0];
     stackOfCards.splice(0, 1);
-    return card;
+    return {
+        card,
+        stackOfCards
+    };
 }
