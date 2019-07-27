@@ -17,7 +17,7 @@ function startGame({
     let stackOfCards = shuffleDecks(numberOfDecks);
 
     // play the game for the specified number of rounds
-    for (let i = 0; i < numberOfRounds; i +) {
+    for (let i = 0; i < numberOfRounds; i++) {
         playRound(continuousShuffle, dealer, players, stackOfCards);
     }
 }
