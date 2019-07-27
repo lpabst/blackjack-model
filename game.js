@@ -46,6 +46,7 @@ function playRound(continuousShuffle, dealer, players, stackOfCards) {
         // TODO: fill out the player.js file with logic for each player to follow basic strategy
     })
 
+    finishDealingDealersHand(dealer, stackOfCards);
     finalizeRound(dealer, players, continuousShuffle, stackOfCards);
     return true;
 }

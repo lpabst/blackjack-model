@@ -41,6 +41,9 @@ function shuffleDecks(numberOfDecks) {
 // takes one card from the array and returns it
 // modifies the original stack of cards
 function takeCardFromStack(stackOfCards) {
+    if (stackOfCards.length === 0) {
+        throw Error('Deck (stack) is out of cards')
+    }
     const card = stackOfCards[0];
     stackOfCards.splice(0, 1);
     return card;
