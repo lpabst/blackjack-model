@@ -7,7 +7,13 @@ function getAllCardsForNumberOfDecks(numberOfDecks) {
     for (let i = 0; i < numberOfDecks; i++) {
         suits.forEach(suit => {
             values.forEach(value => {
-                allCards.push({ value, suit })
+                const pointValue = typeof value === 'number' ? value : 10;
+                if (value === 'a') pointValue = 11;
+                allCards.push({
+                    value,
+                    suit,
+                    pointValue
+                })
             })
         })
     }
@@ -32,3 +38,10 @@ function shuffleDecks(numberOfDecks) {
     return shuffledCards;
 }
 
+// takes one card from the array and returns it
+// modifies the original stack of cards
+function takeCardFromStack(stackOfCards) {
+    const card = stackOfCards[0];
+    stackOfCards.splice(0, 1);
+    return card;
+}
