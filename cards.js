@@ -25,7 +25,7 @@ function getAllCardsForNumberOfDecks(numberOfDecks) {
 }
 
 // Randomly orangizes all of the cards and returns a new array
-function shuffleCards(cardsArray) {
+function getShuffledCards(cardsArray) {
     let shuffledArray = [];
     while (cardsArray.length > 0) {
         let randomIndex = random(0, cardsArray.length - 1);
@@ -36,9 +36,9 @@ function shuffleCards(cardsArray) {
 }
 
 // returns a shuffled stack of cards for the specified number of decks 
-function shuffleDecks(numberOfDecks) {
+function getShuffleDecks(numberOfDecks) {
     let allCards = getAllCardsForNumberOfDecks(numberOfDecks);
-    let shuffledCards = shuffleCards(allCards);
+    let shuffledCards = getShuffledCards(allCards);
     return shuffledCards;
 }
 
@@ -52,6 +52,6 @@ function takeCardFromStack(stackOfCards) {
     stackOfCards.splice(0, 1);
     return {
         card,
-        stackOfCards
+        newStackOfCards: stackOfCards
     };
 }

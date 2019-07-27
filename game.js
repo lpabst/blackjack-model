@@ -15,7 +15,7 @@ function startGame({
     let data = {
         dealer: initDealer(),
         players: initPlayers(numberOfPlayers, startingCashPerPlayer),
-        stackOfCards: shuffleDecks(numberOfDecks),
+        stackOfCards: getShuffleDecks(numberOfDecks),
         continuousShuffle
     }
 
