@@ -43,7 +43,7 @@ function playRound(continuousShuffle, dealer, players, stackOfCards) {
 
     // each player decides what to do with their hand 
     players.forEach(player => {
-        // TODO: (need a player.js file for this);
+        // TODO: fill out the player.js file with logic for each player to follow basic strategy
     })
 
     finalizeRound(dealer, players, continuousShuffle, stackOfCards);
