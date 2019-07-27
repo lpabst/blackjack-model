@@ -59,10 +59,12 @@ function getDetailsForPlayersHand(player) {
     })
 
     // Modify for hard Aces - an Ace that has to have a point value of 1 to avoid a bust is a 'hard' Ace
-    while (numberOfAces > 0 && points > 21) {
+    let numberOfSoftAces = numberOfAces - numberOfHardAces;
+    while (numberOfSoftAces > 0 && points > 21) {
         // minus 10 points for each Hard Ace until they're under 21 or out of aces
         points -= 10;
         numberOfHardAces++;
+        numberOfSoftAces--;
     }
 
     return {
@@ -93,7 +95,8 @@ function checkPlayerForBust(player, dealer) {
 
 /**
  * The dealer keeps 'hitting' until they have 17 or more
- * If it's a soft 17 (an ace and any combo of other cards totalling 6) then the dealer hits again
+ * If it's a soft 17 (an ace and any combo of other cards totalling 6) then the dealer hits again (h17 game)
+ * NOTE: I could make that an optional parameter in the future to simulate h17 and s17 games
  */
 function finishDealingDealersHand(dealer, stackOfCards) {
     let dealersHandDetails = getDetailsForPlayersHand(dealer);
