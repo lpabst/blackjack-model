@@ -145,3 +145,10 @@ function handleFinalBetsAndPayouts(dealer, players) {
         }
     })
 }
+
+// ends the round
+// dealer does final payouts, then discards his own cards
+function finalizeRound(dealer, players) {
+    handleFinalBetsAndPayouts(dealer, players);
+    takePlayersCards(dealer, dealer);
+}
