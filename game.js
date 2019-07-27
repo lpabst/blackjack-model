@@ -20,6 +20,8 @@ function startGame({
     for (let i = 0; i < numberOfRounds; i++) {
         playRound(continuousShuffle, dealer, players, stackOfCards);
     }
+
+    return true;
 }
 
 function initPlayers(numberOfPlayers, startingCashPerPlayer) {
@@ -36,6 +38,14 @@ function initDealer() {
 }
 
 // Does one full round of play
-function playRound(continuousShuffle) {
+function playRound(continuousShuffle, dealer, players, stackOfCards) {
+    dealCardsForRound(players, dealer, stackOfCards);
 
+    // each player decides what to do with their hand 
+    players.forEach(player => {
+        // TODO: (need a player.js file for this);
+    })
+
+    finalizeRound(dealer, players, continuousShuffle, stackOfCards);
+    return true;
 }
