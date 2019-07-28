@@ -26,6 +26,20 @@ const splitPair = {
     11: { 'a': Y, 10: N, 9: N, 8: Y, 7: N, 6: N, 5: N, 4: N, 3: N, 2: N },
 }
 
+const realHardTotalsFromTheInternet = {
+    2: { 17: S, 16: S, 15: S, 14: S, 13: S, 12: H, 11: DH, 10: DH, 9: H, 8: H },
+    3: { 17: S, 16: S, 15: S, 14: S, 13: S, 12: H, 11: DH, 10: DH, 9: DH, 8: H },
+    4: { 17: S, 16: S, 15: S, 14: S, 13: S, 12: S, 11: DH, 10: DH, 9: DH, 8: H },
+    5: { 17: S, 16: S, 15: S, 14: S, 13: S, 12: S, 11: DH, 10: DH, 9: DH, 8: H },
+    6: { 17: S, 16: S, 15: S, 14: S, 13: S, 12: S, 11: DH, 10: DH, 9: DH, 8: H },
+    7: { 17: S, 16: H, 15: H, 14: H, 13: H, 12: H, 11: DH, 10: DH, 9: H, 8: H },
+    8: { 17: S, 16: H, 15: H, 14: H, 13: H, 12: H, 11: DH, 10: DH, 9: H, 8: H },
+    9: { 17: S, 16: H, 15: H, 14: H, 13: H, 12: H, 11: DH, 10: DH, 9: H, 8: H },
+    10: { 17: S, 16: H, 15: H, 14: H, 13: H, 12: H, 11: DH, 10: H, 9: H, 8: H },
+    11: { 17: S, 16: H, 15: H, 14: H, 13: H, 12: H, 11: DH, 10: H, 9: H, 8: H },
+}
+
+// I'm going to test different strategies out here, i.e. these aren't the real ones from online
 const hardTotals = {
     2: { 17: S, 16: S, 15: S, 14: S, 13: S, 12: H, 11: DH, 10: DH, 9: H, 8: H },
     3: { 17: S, 16: S, 15: S, 14: S, 13: S, 12: H, 11: DH, 10: DH, 9: DH, 8: H },

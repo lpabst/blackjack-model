@@ -26,7 +26,13 @@ function startGame({
         playRound(data);
     }
 
+    // some quick helpful numbers on players' winnings/losings
+    let averagePlayerCash = 0;
+    data.players.forEach(player => averagePlayerCash += player.cash);
+    averagePlayerCash = averagePlayerCash / data.players.length;
+
     console.log(data);
+    console.log(averagePlayerCash);
     return data;
 }
 
@@ -57,10 +63,10 @@ function playRound(data) {
 }
 
 startGame({
-    numberOfPlayers: 3,
+    numberOfPlayers: 15,
     startingCashPerPlayer: 10000,
     numberOfDecks: 4,
-    numberOfRounds: 5,
+    numberOfRounds: 20000,
     continuousShuffle: true,
     doubleDownIsAllowed: true
 })

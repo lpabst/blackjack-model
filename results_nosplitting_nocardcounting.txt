@@ -1,0 +1,30 @@
+The number of players in the match doesn't matter since each player plays directly against the dealer and that's it
+    - I tried with different numbers of players and it's the same
+
+Game Settings
+{
+    numberOfPlayers: 15,
+    startingCashPerPlayer: 10000,
+    numberOfDecks: 4,
+    numberOfRounds: 20000,
+    continuousShuffle: true,
+    doubleDownIsAllowed: true,
+    dealerHitsSoft17: true
+}
+
+Seems like the average result over 20,000 games ($10 bets) (no splitting & no card counting) is $10,000 => $5,862   
+    - That's an average loss of about $0.2069 per game with a $10 bet = 2.069% loss rate
+
+Average player cash after 20,000 rounds ($10 bets) - I average all 15 players for one total, so each of these 
+numbers is a new game of 20,000 rounds with 15 new players
+5404
+6427
+5263
+4696
+4860
+7034
+6454
+6680
+6802
+5002
+

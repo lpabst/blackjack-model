@@ -1,0 +1,24 @@
+Game Settings
+{
+    numberOfPlayers: 15,
+    startingCashPerPlayer: 10000,
+    numberOfDecks: 4,
+    numberOfRounds: 20000,
+    continuousShuffle: true,
+    doubleDownIsAllowed: true
+}
+
+$10 bets each round
+I tried always hitting on a hard 12/13 since it seems like you'll get a good hand more often than bust
+Seems more volatile, and overall players ended with around $5,100 = loss of $0.245/game = 2.45% loss rate
+
+Average player cash after 20,000 rounds
+6908
+4583
+5677
+2935
+4327
+5580
+5509
+
+

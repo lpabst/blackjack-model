@@ -126,6 +126,7 @@ function handlePlayerWon(player, dealer, isBlackJack) {
     player.bet = 0;
     player.isPlaying = false;
     discardPlayersCards(player, dealer);
+    player.updateWinLossStreak('win');
     return true;
 }
 
@@ -134,6 +135,7 @@ function handlePlayerLost(player, dealer) {
     player.bet = 0;
     player.isPlaying = false;
     discardPlayersCards(player, dealer);
+    player.updateWinLossStreak('loss');
     return true;
 }
 
@@ -143,6 +145,7 @@ function handlePlayerTie(player, dealer) {
     player.bet = 0;
     player.isPlaying = false;
     discardPlayersCards(player, dealer);
+    player.updateWinLossStreak('tie');
     return true;
 }
 
