@@ -189,13 +189,3 @@ function handleReShuffling(data) {
 
     return true
 }
-
-// ends the round
-// dealer does final payouts, then discards his own cards and checks for a re-shuffle
-function finalizeRound(data) {
-    let { dealer } = data;
-    handleFinalBetsAndPayouts(data);
-    discardPlayersCards(dealer, dealer);
-    handleReShuffling(data);
-    return true;
-}

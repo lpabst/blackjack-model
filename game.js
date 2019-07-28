@@ -10,13 +10,15 @@ function startGame({
     numberOfDecks,
     numberOfRounds,
     continuousShuffle,
+    doubleDownIsAllowed
 }) {
     // set things up
     let data = {
         dealer: initDealer(),
         players: initPlayers(numberOfPlayers, startingCashPerPlayer),
         stackOfCards: getShuffleDecks(numberOfDecks),
-        continuousShuffle
+        continuousShuffle,
+        doubleDownIsAllowed
     }
 
     // play the game for the specified number of rounds
@@ -43,10 +45,22 @@ function initDealer() {
 
 // Does one full round of play
 function playRound(data) {
+    let { dealer } = data;
     data.players.forEach(player => player.makeBet());
     dealCardsForRound(data);
-    data.players.forEach(player => finalizePlayersHand(player, data.dealer.pointsShowing))
+    data.players.forEach(player => finalizePlayersHand(player, data))
     finishDealingDealersHand(data);
-    finalizeRound(data);
+    handleFinalBetsAndPayouts(data);
+    discardPlayersCards(dealer, dealer);
+    handleReShuffling(data);
     return true;
 }
+
+startGame({
+    numberOfPlayers: 3,
+    startingCashPerPlayer: 10000,
+    numberOfDecks: 4,
+    numberOfRounds: 5,
+    continuousShuffle: true,
+    doubleDownIsAllowed: true
+})
