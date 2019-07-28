@@ -54,14 +54,8 @@ const softTotals = {
 
 function getPlayerAction(dealersPoints, playersPoints, playerHasSoftAce, playersCards, doubleDownIsAllowed) {
     // TODO: at some point I need to add in splitting based on players cards here
-    if (playersCards[0] && playersCards[1] & playersCards[0].value === playersCards[1].value) {
+    if (playersCards[0].value === playersCards[1].value) {
 
-    }
-
-    // remove afger testing
-    if (!playersCards || !playersCards[0] || !playersCards[1]) {
-        console.log('\n wtf');
-        console.log(playersCards)
     }
 
     // after a splitting decision, lookup hit/stand decision
@@ -86,6 +80,12 @@ function getPlayerAction(dealersPoints, playersPoints, playerHasSoftAce, players
 
 // I want the players to follow basic strategy 
 function finalizePlayersHand(player, data) {
+    // if the player had blackjack they won't have any cards here and no action is required
+    if (!player.cards || player.cards.length === 0) {
+        return;
+    }
+
+    // get the player action
     let { dealer, stackOfCards, doubleDownIsAllowed } = data;
     let { points, numberOfSoftAces } = getDetailsForPlayersHand(player);
     let playerHasSoftAce = numberOfSoftAces > 0;
