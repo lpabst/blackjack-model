@@ -28,11 +28,19 @@ function startGame({
 
     // some quick helpful numbers on players' winnings/losings
     let averagePlayerCash = 0;
-    data.players.forEach(player => averagePlayerCash += player.cash);
+    let largestLossStreak = 0;
+    let largestWinStreak = 0;
+    data.players.forEach(player => {
+        averagePlayerCash += player.cash;
+        if (player.winLossStreak.win > largestWinStreak) largestWinStreak = player.winLossStreak.win;
+        if (player.winLossStreak.loss > largestLossStreak) largestLossStreak = player.winLossStreak.loss;
+    });
     averagePlayerCash = averagePlayerCash / data.players.length;
+
 
     console.log(data);
     console.log(averagePlayerCash);
+    console.log({ largestWinStreak, largestLossStreak });
     return data;
 }
 
@@ -63,10 +71,10 @@ function playRound(data) {
 }
 
 startGame({
-    numberOfPlayers: 15,
-    startingCashPerPlayer: 10000,
+    numberOfPlayers: 10,
+    startingCashPerPlayer: 100000,
     numberOfDecks: 4,
-    numberOfRounds: 20000,
+    numberOfRounds: 1000000,
     continuousShuffle: true,
     doubleDownIsAllowed: true
 })

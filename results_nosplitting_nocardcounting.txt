@@ -28,3 +28,21 @@ numbers is a new game of 20,000 rounds with 15 new players
 6802
 5002
 
+
+startGame({
+    numberOfPlayers: 10,
+    startingCashPerPlayer: 100000,
+    numberOfDecks: 4,
+    numberOfRounds: 100000,
+    continuousShuffle: true,
+    doubleDownIsAllowed: true
+})
+
+I found with 100,000 rounds the volatility goes away (seems more reliable). 
+I also gave each player 100,000 to start 
+Average loss of $20,800 = 2.08% loss rate (about the same as above)
+75800
+83500
+77900
+81400
+77400
